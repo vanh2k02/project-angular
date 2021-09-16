@@ -19,6 +19,7 @@ class BrandController extends Controller
     {
         $brand = new Brand();
         $brand->brand_name = $request->name;
+        $brand->brand_image = $request->image;
         $brand->brand_desc = $request->desc;
         $brand->brand_status = $request->status;
         $brand->save();

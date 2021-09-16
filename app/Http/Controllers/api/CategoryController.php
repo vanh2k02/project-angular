@@ -20,6 +20,7 @@ class CategoryController extends Controller
     {
         $category = new Category();
         $category->category_name = $request->name;
+        $category->category_image = $request->image;
         $category->category_desc = $request->desc;
         $category->category_status = $request->status;
         $category->save();
