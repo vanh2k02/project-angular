@@ -35,7 +35,7 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
 
-        $category = Category::where('category_id', $id)->update([
+        Category::where('category_id', $id)->update([
             'category_name' => $request->name,
             'category_desc' => $request->desc,
             'category_status' => $request->status
@@ -45,13 +45,13 @@ class CategoryController extends Controller
 
     public function actionShowCategory($id)
     {
-        $category = Category::where('category_id', $id)->update(['category_status' => 1]);
+        Category::where('category_id', $id)->update(['category_status' => 1]);
         return response()->json(['message' => 'oke']);
     }
 
     public function actionHideCategory($id)
     {
-        $category = Category::where('category_id', $id)->update(['category_status' => 0]);
+        Category::where('category_id', $id)->update(['category_status' => 0]);
         return response()->json(['message' => 'oke']);
     }
 
@@ -59,6 +59,12 @@ class CategoryController extends Controller
     {
         Category::where('category_id', $id)->delete();
         return response()->json(['message' => 'delete success']);
+    }
+
+    public function showCategoryPage()
+    {
+        $categories = Category::where('category_status', 1)->get();
+        return response()->json($categories);
     }
 
 }

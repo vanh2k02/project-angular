@@ -21,8 +21,8 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('image')->default('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwbGozsS9QP10p16rZiCrQD0koXVkI4c7LwUHab9dkmFRcN0VqCkB37f2y0EnySItwykg&usqp=CAU');
             $table->string('position_at_work')->nullable();
-            $table->string('address')->default('Trống');
-            $table->string('phone')->default('Trống');
+            $table->string('address')->nullable();
+            $table->string('phone')->nullable();
             $table->integer('role_id')->default(0);
             $table->rememberToken();
             $table->timestamps();
