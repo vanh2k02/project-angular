@@ -21,14 +21,13 @@ class BrandController extends Controller
         $brand->brand_name = $request->name;
         $brand->brand_image = $request->image;
         $brand->brand_desc = $request->desc;
-        $brand->brand_status = 0;
         $brand->save();
         return response()->json(['message' => 'success']);
     }
 
     public function findBrand($id)
     {
-        $brand = Brand::where('brand_id', $id)->get();
+        $brand = Brand::where('brand_id', $id)->first();
         return response()->json($brand);
     }
 
