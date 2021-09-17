@@ -22,14 +22,14 @@ class CategoryController extends Controller
         $category->category_name = $request->name;
         $category->category_image = $request->image;
         $category->category_desc = $request->desc;
-        $category->category_status = $request->status;
+        $category->category_status = 0;
         $category->save();
         return response()->json(['message' => 'success']);
     }
 
     public function findCategory($id)
     {
-        $category = Category::where('category_id', $id)->get();
+        $category = Category::where('category_id', $id)->first();
         return response()->json($category);
     }
 
@@ -38,22 +38,10 @@ class CategoryController extends Controller
 
         Category::where('category_id', $id)->update([
             'category_name' => $request->name,
+            'category_image' => $request->image,
             'category_desc' => $request->desc,
-            'category_status' => $request->status
         ]);
         return response()->json(['message' => 'success']);
-    }
-
-    public function actionShowCategory($id)
-    {
-        Category::where('category_id', $id)->update(['category_status' => 1]);
-        return response()->json(['message' => 'oke']);
-    }
-
-    public function actionHideCategory($id)
-    {
-        Category::where('category_id', $id)->update(['category_status' => 0]);
-        return response()->json(['message' => 'oke']);
     }
 
     public function delete($id)
@@ -62,10 +50,5 @@ class CategoryController extends Controller
         return response()->json(['message' => 'delete success']);
     }
 
-    public function showCategoryPage()
-    {
-        $categories = Category::where('category_status', 1)->get();
-        return response()->json($categories);
-    }
 
 }

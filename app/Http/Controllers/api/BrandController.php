@@ -21,7 +21,7 @@ class BrandController extends Controller
         $brand->brand_name = $request->name;
         $brand->brand_image = $request->image;
         $brand->brand_desc = $request->desc;
-        $brand->brand_status = $request->status;
+        $brand->brand_status = 0;
         $brand->save();
         return response()->json(['message' => 'success']);
     }
@@ -37,23 +37,12 @@ class BrandController extends Controller
 
         Brand::where('brand_id', $id)->update([
             'brand_name' => $request->name,
+            'brand_image' => $request->image,
             'brand_desc' => $request->desc,
-            'brand_status' => $request->status
         ]);
         return response()->json(['message' => 'success']);
     }
 
-    public function actionShowBrand($id)
-    {
-        Brand::where('brand_id', $id)->update(['brand_status' => 1]);
-        return response()->json(['message' => 'oke']);
-    }
-
-    public function actionHideBrand($id)
-    {
-        Brand::where('brand_id', $id)->update(['brand_status' => 0]);
-        return response()->json(['message' => 'oke']);
-    }
 
     public function delete($id)
     {
@@ -61,9 +50,4 @@ class BrandController extends Controller
         return response()->json(['message' => 'delete success']);
     }
 
-    public function showBrandPage()
-    {
-        $brands = Brand::where('brand_status', 1)->get();
-        return response()->json($brands);
-    }
 }

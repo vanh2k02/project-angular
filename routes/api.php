@@ -29,31 +29,22 @@ Route::middleware(['auth:api'])->group(function () {
     });
     Route::prefix('category')->group(function () {
         Route::get('/show-category', [CategoryController::class, 'showCategory']);
-        Route::get('/show-page-category', [CategoryController::class, 'showCategoryPage']);
         Route::post('/create-category', [CategoryController::class, 'createCategory']);
         Route::post('/{id}/find-category', [CategoryController::class, 'findCategory']);
         Route::post('/{id}/update-category', [CategoryController::class, 'update']);
-        Route::post('/{id}/action-show-category', [CategoryController::class, 'actionShowCategory']);
-        Route::post('/{id}/action-hide-category', [CategoryController::class, 'actionHideCategory']);
         Route::post('/{id}/delete-category', [CategoryController::class, 'delete']);
     });
     Route::prefix('brand')->group(function () {
         Route::get('/show-brand', [BrandController::class, 'showBrand']);
-        Route::get('/show-page-brand', [BrandController::class, 'showBrandPage']);
         Route::post('/create-brand', [BrandController::class, 'createBrand']);
         Route::post('/{id}/find-brand', [BrandController::class, 'findBrand']);
         Route::post('/{id}/update-brand', [BrandController::class, 'update']);
-        Route::post('/{id}/action-show-brand', [BrandController::class, 'actionShowBrand']);
-        Route::post('/{id}/action-hide-brand', [BrandController::class, 'actionHideBrand']);
         Route::post('/{id}/delete-brand', [BrandController::class, 'delete']);
     });
 
     Route::prefix('product')->group(function () {
         Route::get('/show-all-product', [ProductController::class, 'showAllProduct']);
-        Route::get('/show-page-product', [ProductController::class, 'showProductByStatus']);
         Route::post('/create-product', [ProductController::class, 'createProduct']);
-        Route::post('/{id}/action-show-product', [ProductController::class, 'actionShowProduct']);
-        Route::post('/{id}/action-hide-product', [ProductController::class, 'actionHideProduct']);
         Route::post('/{id}/update-product', [ProductController::class, 'updateProduct']);
     });
 

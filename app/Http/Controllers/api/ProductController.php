@@ -29,24 +29,6 @@ class ProductController extends Controller
         return response()->json(['message' => 'oke r day']);
     }
 
-    public function showProductByStatus()
-    {
-        $products = Product::where('status', 1);
-        return response()->json($products);
-    }
-
-    public function actionShowProduct($id)
-    {
-        Product::where('product_id', $id)->update(['status' => 1]);
-        return response()->json(['message' => 'oke']);
-    }
-
-    public function actionHideProduct($id)
-    {
-        Product::where('product_id', $id)->update(['status' => 0]);
-        return response()->json(['message' => 'oke']);
-    }
-
     public function updateProduct(Request $request, $id)
     {
         Product::where('product_id', $id)->update([
