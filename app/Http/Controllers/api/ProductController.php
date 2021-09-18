@@ -11,7 +11,9 @@ class ProductController extends Controller
     //
     public function showAllProduct()
     {
-        $products = Product::orderBy('name', 'desc')->get();
+        $products = Product::join('categories', 'categories.category_id', '=', 'products.category_id')
+            ->join('brands', 'brands.brand_id', '=', 'products.brand_id')
+            ->orderBy('product_name', 'desc')->get();
         return response()->json($products);
     }
 
@@ -24,9 +26,17 @@ class ProductController extends Controller
         $product->desc = $request->desc;
         $product->price = $request->price;
         $product->image = $request->image;
-        $product->status = $request->status;
         $product->save();
         return response()->json(['message' => 'oke r day']);
+    }
+
+    public function findProduct($id)
+    {
+        $product = Product::join('categories', 'categories.category_id', '=', 'products.category_id')
+            ->join('brands', 'brands.brand_id', '=', 'products.brand_id')
+            ->where('product_id', $id)
+            ->first();
+        return response()->json($product);
     }
 
     public function updateProduct(Request $request, $id)
@@ -38,7 +48,6 @@ class ProductController extends Controller
             'desc' => $request->desc,
             'price' => $request->price,
             'image' => $request->image,
-            'status' => $request->status
         ]);
         return response()->json(['message' => 'thanh cong r day']);
     }

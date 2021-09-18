@@ -22,7 +22,6 @@ class CategoryController extends Controller
         $category->category_name = $request->name;
         $category->category_image = $request->image;
         $category->category_desc = $request->desc;
-        $category->category_status = 0;
         $category->save();
         return response()->json(['message' => 'success']);
     }

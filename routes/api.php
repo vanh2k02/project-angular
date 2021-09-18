@@ -43,9 +43,11 @@ Route::middleware(['auth:api'])->group(function () {
     });
 
     Route::prefix('product')->group(function () {
-        Route::get('/show-all-product', [ProductController::class, 'showAllProduct']);
+        Route::get('/show-product', [ProductController::class, 'showAllProduct']);
         Route::post('/create-product', [ProductController::class, 'createProduct']);
         Route::post('/{id}/update-product', [ProductController::class, 'updateProduct']);
+        Route::post('/{id}/find-product', [ProductController::class, 'findProduct']);
+        Route::post('/{id}/delete-product', [ProductController::class, 'deleteProduct']);
     });
 
 });
