@@ -44,10 +44,13 @@ Route::middleware(['auth:api'])->group(function () {
 
     Route::prefix('product')->group(function () {
         Route::get('/show-product', [ProductController::class, 'showAllProduct']);
+        Route::get('/show-product-new', [ProductController::class, 'showProductNew']);
         Route::post('/create-product', [ProductController::class, 'createProduct']);
         Route::post('/{id}/update-product', [ProductController::class, 'updateProduct']);
         Route::post('/{id}/find-product', [ProductController::class, 'findProduct']);
         Route::post('/{id}/delete-product', [ProductController::class, 'deleteProduct']);
+        Route::post('/add-cart-product', [ProductController::class, 'addToCart']);
+        Route::post('/show-cart-product', [ProductController::class, 'showCart']);
     });
 
 });

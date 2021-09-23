@@ -20,6 +20,7 @@ class CreateProductsTable extends Migration
             $table->bigInteger('brand_id');
             $table->text('desc');
             $table->float('price');
+            $table->float('promotional_price')->default(0);
             $table->string('image');
             $table->timestamps();
         });
