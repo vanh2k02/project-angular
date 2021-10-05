@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class BrandController extends Controller
@@ -47,6 +48,12 @@ class BrandController extends Controller
     {
         Brand::where('brand_id', $id)->delete();
         return response()->json(['message' => 'delete success']);
+    }
+
+    public function getProductByBrand($id)
+    {
+        $products=Product::where('brand_id', $id)->orderBy('product_name', 'desc')->get();
+        return response()->json($products);
     }
 
 }

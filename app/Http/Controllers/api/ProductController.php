@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use mysql_xdevapi\Table;
 
 class ProductController extends Controller
 {
@@ -35,6 +37,7 @@ class ProductController extends Controller
         $product->price = $request->price;
         $product->promotional_price = $request->promotional_price;
         $product->image = $request->image;
+        $product->quantity = $request->quantity;
         $product->save();
         return response()->json(['message' => 'oke r day']);
     }
@@ -77,23 +80,29 @@ class ProductController extends Controller
         if (!$cartProduct) {
             $cart = new Cart();
             $cart->product_id = $request->product_id;
-            $cart->quantity = $request->quantity;
+            $cart->cart_quantity = $request->quantity;
             $cart->user_id = $request->user_id;
             $cart->save();
             return response()->json('oke r day');
         } else {
             Cart::where('user_id', $request->user_id)
                 ->where('product_id', $request->product_id)
-                ->update(['quantity' => $cartProduct->quantity + $request->quantity]);
+                ->update(['cart_quantity' => $cartProduct->cart_quantity + $request->quantity]);
             return response()->json('oke r');
         }
     }
 
-    public function showCart(Request $request)
+    public function showCart($id)
     {
-        $cart = Cart::join('products','products.product_id','=','cart.product_id')
-            ->where('user_id', $request->user_id)
+        $cart = Cart::join('products', 'products.product_id', '=', 'cart.product_id')
+            ->where('user_id', $id)
             ->get();
         return response()->json($cart);
+    }
+
+    public function updateToCart($id, $data)
+    {
+        Cart::where('cart_id', $id)->update(['cart_quantity' => $data]);
+        return response()->json(['message' => 'oke r day']);
     }
 }

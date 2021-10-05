@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Validator;
 
@@ -49,5 +50,10 @@ class CategoryController extends Controller
         return response()->json(['message' => 'delete success']);
     }
 
+    public function getProductByCategory($id)
+    {
+        $products=Product::where('category_id', $id)->orderBy('product_name', 'desc')->get();
+        return response()->json($products);
+    }
 
 }

@@ -20,6 +20,7 @@ class CreateTransportsTable extends Migration
             $table->string('transport_address');
             $table->bigInteger('user_id');
             $table->string('transport_phone');
+            $table->integer('payment_id');
             $table->timestamps();
         });
     }

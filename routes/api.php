@@ -4,6 +4,7 @@ use App\Http\Controllers\api\AuthController;
 use App\Http\Controllers\api\BrandController;
 use App\Http\Controllers\api\CategoryController;
 use App\Http\Controllers\api\ProductController;
+use App\Http\Controllers\api\TransportController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +34,7 @@ Route::middleware(['auth:api'])->group(function () {
         Route::post('/{id}/find-category', [CategoryController::class, 'findCategory']);
         Route::post('/{id}/update-category', [CategoryController::class, 'update']);
         Route::post('/{id}/delete-category', [CategoryController::class, 'delete']);
+        Route::post('/{id}/product-category', [CategoryController::class, 'getProductByCategory']);
     });
     Route::prefix('brand')->group(function () {
         Route::get('/show-brand', [BrandController::class, 'showBrand']);
@@ -40,6 +42,7 @@ Route::middleware(['auth:api'])->group(function () {
         Route::post('/{id}/find-brand', [BrandController::class, 'findBrand']);
         Route::post('/{id}/update-brand', [BrandController::class, 'update']);
         Route::post('/{id}/delete-brand', [BrandController::class, 'delete']);
+        Route::post('/{id}/product-brand', [BrandController::class, 'getProductByBrand']);
     });
 
     Route::prefix('product')->group(function () {
@@ -50,7 +53,11 @@ Route::middleware(['auth:api'])->group(function () {
         Route::post('/{id}/find-product', [ProductController::class, 'findProduct']);
         Route::post('/{id}/delete-product', [ProductController::class, 'deleteProduct']);
         Route::post('/add-cart-product', [ProductController::class, 'addToCart']);
-        Route::post('/show-cart-product', [ProductController::class, 'showCart']);
+        Route::post('/{id}/update-cart-product/{data}', [ProductController::class, 'updateToCart']);
+        Route::get('{id}/show-cart-product', [ProductController::class, 'showCart']);
     });
-
+    Route::prefix('transport')->group(function () {
+        Route::post('{val}/create-transport',[TransportController::class,'createTransport']);
+        Route::get('show-payment',[TransportController::class,'showPayment']);
+    });
 });

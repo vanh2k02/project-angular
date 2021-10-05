@@ -22,6 +22,9 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('123456'),
             'role_id'=>'1'
         ]);
-
+        $this->call(brand::class);
+        $this->call(category::class);
+        $this->call(product::class);
+        $this->call(payment::class);
     }
 }
